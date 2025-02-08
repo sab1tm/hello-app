@@ -1,11 +1,13 @@
 server:
-  port: ${NOMAD_HOST_PORT_http:8090}
+  port: 8090
 spring:
   application:
-    name: hello-service
-  cloud:
-    consul:
-      host: 192.168.99.100
-      port: 8500
-      discovery:
-        register: false
+    name: hello-app
+    cloud:
+      consul:
+        host: localhost
+        port: 8500
+        discovery:
+          instanceId: ${spring.application.name}:${random.value}
+          healthCheckPath: /
+          healthCheckInterval: 10s
